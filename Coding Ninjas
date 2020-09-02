@@ -1,0 +1,46 @@
+int a[8][2]={{-1,1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
+int visited[MAXN][MAXN];
+char pattern[11]={'C','O','D','I','N','G','N','I','N','G','A'};
+bool  valid(int x,int y,int n,int m){
+    if(x>=0 && x<n && y>=0 && y<m)
+    {return true;}
+    return false;
+}
+int BFS(char Graph[][MAXN],int x,int y,int index,int n,int m){
+    if(index==11)
+    {return 1;}
+    int found=0;
+    int newX;
+    int newY;
+    visited[x][y]=1;
+    for(int i=0;i<8;i++){
+        newX=x+a[i][0];
+        newY=y+a[i][1];
+    
+    if(valid(newX,newY,n,m)&& !visited[newX][newY] && Graph[newX][newY]==pattern[index])
+    {
+        found=BFS(Graph,x, y,index+1,n,m);
+    }
+    } 
+    visited[x][y]=0;
+    return found;
+    
+}
+
+
+int solve(char Graph[][MAXN],int N, int M)
+{ int found=0;
+    for(int i=0;i<N;i++){
+         for(int j=0;j<N;j++){
+             if(Graph[i][j]=='C')
+             {
+                 found=BFS(Graph,i,j,1,N,M);
+                 if(found)
+                 {break;}
+             }
+         } 
+      
+    }
+  return found;      
+	
+}
