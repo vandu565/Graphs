@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+void dsf(int **edges , int n,int sv,bool *visited){
+    visited[sv]=true;
+    
+    for(int i=0 ;i<n;i++){
+        if(sv==i)
+        {continue;}
+        if(edges[sv][i]!=0 && !visited[i])
+        {
+            dsf(edges ,n,i,visited);
+        }
+    }
+    
+    
+    
+}
+
+bool isconnected(int **edges ,int n) {
+      bool *visited=new bool[n];
+    for(int i=0;i<n;i++)
+    {visited[i]=false;}
+   
+      dsf(edges , n,0,visited);
+     for(int i=0 ;i<n;i++){
+         
+        if(visited[i]==false)
+        {return false;}
+    }
+      return true;
+}
+
+
+
+int main() {
+ int n, e;
+    cin >> n >> e;
+    int **edges=new int*[n];
+        for(int i=0;i<n;i++)
+        {edges[i]=new int[n];
+        for(int j=0;j<n;j++)
+        { edges[i][j]=0;
+        }
+}
+    for(int i=0;i<e;i++)
+    {int f,s;
+    cin>>f>>s;
+    edges[f][s]=1;
+    edges[s][f]=1;
+    }
+   
+   
+
+    
+        bool k=isconnected(edges,n);
+    if(k==true){
+        cout<< "true";
+    }else
+    { cout<<"false";}
+     
+    
+    
+
+  /*
+
+  	   Write Your Code Here
+	   Complete the Rest of the Program
+	   You have to take input and print the output yourself
+	 
+  */
+    
+
+  return 0;
+}
