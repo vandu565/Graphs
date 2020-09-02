@@ -1,0 +1,61 @@
+#include <iostream>
+#include <queue>
+using namespace std;
+void bfs(int **edge,int n,bool *visited,int sv){
+   
+    visited[sv]=true;
+    queue<int> pending;
+    pending.push(sv);
+    while(!pending.empty()){
+         
+        int current=pending.front();
+        cout<<current<<" ";
+        pending.pop();
+         for(int i=0;i<n;i++){
+        if(current==i){
+            continue;
+        }
+        if(edge[current][i]!=0 && !visited[i]){
+            pending.push(i);
+            visited[i]=true;
+            
+        }
+    }
+        
+    }
+   
+}
+int main() {
+    int V, E;
+    cin >> V >> E;
+    int s,v;
+    int **edge=new int*[V];
+    for(int i=0;i<V;i++){
+        edge[i]=new int[V];
+        for(int j=0;j<V;j++){
+            edge[i][j]=0;
+            }
+    }
+    bool *visited=new bool[V];
+    for(int i=0;i<V;i++){
+        visited[i]=false;
+    }
+     for(int i=0;i<E;i++){
+        cin>>s>>v;
+        
+            edge[s][v]=1;
+            edge[v][s]=2;
+           
+    }
+    
+    bfs(edge,V,visited,0);
+  /*
+
+  	   Write Your Code Here
+	   Complete the Rest of the Program
+	   You have to take input and print the output yourself
+	 
+  */
+
+  return 0;
+}
